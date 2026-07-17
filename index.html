@@ -68,12 +68,6 @@ nav ul a:hover{color:var(--accent);text-decoration:none}
 }
 .pill:hover{border-color:var(--accent);text-decoration:none;color:var(--accent)}
 
-/* ---------- Metrics strip ---------- */
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:52px}
-.metric-card{background:var(--surface);padding:20px 18px}
-.metric-card .num{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;font-weight:700;color:var(--accent)}
-.metric-card .lbl{font-size:.76rem;color:var(--muted);margin-top:3px;line-height:1.4}
-
 /* ---------- Projects (signature) ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
 .filters button{
@@ -190,13 +184,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <span class="pill">Singapore</span>
     </div>
 
-    <div class="metrics">
-      <div class="metric-card"><div class="num" data-count="1000" data-suffix="+">0</div><div class="lbl">monthly active users on platform I lead</div></div>
-      <div class="metric-card"><div class="num" data-count="20">0</div><div class="lbl">countries served</div></div>
-      <div class="metric-card"><div class="num" data-count="83" data-suffix="%">0</div><div class="lbl">F1 — palm FFB detection model</div></div>
-      <div class="metric-card"><div class="num" data-count="50" data-suffix="%">0</div><div class="lbl">reduction in missing shipments (SATS)</div></div>
-      <div class="metric-card"><div class="num" data-count="7" data-suffix=" yrs">0</div><div class="lbl">across data &amp; AI roles</div></div>
-    </div>
   </div>
 </header>
 
@@ -513,22 +500,6 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => reduce ? el.classList.add('in') : io.observe(el));
-
-const nio = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '';
-    if (reduce) { el.textContent = target.toLocaleString() + suffix; nio.unobserve(el); return; }
-    const t0 = performance.now(), dur = 900;
-    (function tick(t) {
-      const p = Math.min((t - t0) / dur, 1);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString() + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    })(t0);
-    nio.unobserve(el);
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('[data-count]').forEach(el => nio.observe(el));
 </script>
 </body>
 </html>
